@@ -1,34 +1,20 @@
-import { models } from "@/lib/models";
+import { getModel } from "@/lib/models";
+import { quoteSummary, type QuoteRequest } from "@/lib/quote";
 
-export type ContactRequest = {
-  name: string;
-  email: string;
-  phone?: string;
-  message: string;
-  model?: string;
-};
-
-// Envoie la demande par e-mail via Resend (https://resend.com).
+// Envoie la demande de devis par e-mail via Resend (https://resend.com).
 // Sans RESEND_API_KEY ni CONTACT_EMAIL_TO, la demande est seulement écrite dans les logs.
-export async function sendContactEmail(data: ContactRequest) {
+export async function sendQuoteEmail(q: QuoteRequest) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL_TO;
+  const text = quoteSummary(q);
 
   if (!apiKey || !to) {
-    console.log("Contact (envoi d'e-mail non configuré):", data);
+    console.log("Demande de devis (envoi d'e-mail non configuré):\n" + text);
     return;
   }
 
-  const modelName = models.find((m) => m.slug === data.model)?.name ?? data.model;
-  const subject = `Demande de devis${modelName ? ` – ${modelName}` : ""} – ${data.name}`.replace(/[\r\n]+/g, " ");
-  const text = [
-    `Nom : ${data.name}`,
-    `E-mail : ${data.email}`,
-    `Téléphone : ${data.phone || "—"}`,
-    `Modèle : ${modelName || "—"}`,
-    "",
-    data.message,
-  ].join("\n");
+  const modelName = getModel(q.model)?.name ?? q.model;
+  const subject = `Demande de devis – ${modelName} – ${q.name}`.replace(/[\r\n]+/g, " ");
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -39,7 +25,7 @@ export async function sendContactEmail(data: ContactRequest) {
     body: JSON.stringify({
       from: process.env.CONTACT_EMAIL_FROM || "IWM Location <onboarding@resend.dev>",
       to: [to],
-      reply_to: data.email,
+      reply_to: q.email,
       subject,
       text,
     }),

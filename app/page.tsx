@@ -1,40 +1,64 @@
-import Header from "@/components/Header";
+import Delivery from "@/components/Delivery";
+import Faq from "@/components/Faq";
+import Fleet from "@/components/Fleet";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import HeightFinder from "@/components/HeightFinder";
 import Hero from "@/components/Hero";
-import ModelCard from "@/components/ModelCard";
+import MobileBar from "@/components/MobileBar";
+import ModelSheetDialog from "@/components/ModelSheetDialog";
 import PriceEstimator from "@/components/PriceEstimator";
-import ContactForm from "@/components/ContactForm";
-import { models } from "@/lib/models";
+import QuoteForm from "@/components/QuoteForm";
+import Services from "@/components/Services";
+import Steps from "@/components/Steps";
+import { site } from "@/lib/site";
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: site.name,
+  legalName: site.legalName,
+  taxID: site.ide,
+  description: "Location de nacelles ciseaux électriques neuves de 5,80 à 12 m.",
+  url: site.url,
+  telephone: "+41 76 361 66 14",
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.street,
+    postalCode: site.postalCode,
+    addressLocality: site.city,
+    addressRegion: "JU",
+    addressCountry: "CH",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 47.42933, longitude: 7.08091 },
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "12:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "13:30", closes: "17:30" },
+  ],
+  areaServed: "CH",
+};
 
 export default function Home() {
   return (
     <>
+      <a className="skip" href="#contenu">Aller au contenu</a>
       <Header />
-      <main className="min-h-screen">
+      <main id="contenu">
         <Hero />
-        
-        <section id="modeles" className="py-12 px-4 max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Nos Modèles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {models.map((model) => (
-              <ModelCard key={model.slug} model={model} />
-            ))}
-          </div>
-        </section>
-
-        <section id="tarifs" className="py-12 px-4 bg-white">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center">Estimateur de Prix</h2>
-            <PriceEstimator />
-          </div>
-        </section>
-
-        <section id="devis" className="py-12 px-4 max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Demande de Devis</h2>
-          <ContactForm />
-        </section>
+        <HeightFinder />
+        <Fleet />
+        <PriceEstimator />
+        <Services />
+        <Delivery />
+        <Steps />
+        <Faq />
+        <QuoteForm />
       </main>
       <Footer />
+      <MobileBar />
+      <ModelSheetDialog />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
     </>
   );
 }

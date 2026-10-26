@@ -1,7 +1,10 @@
 # iwm-location-pro
 
-Site privé d'**IWM Location** (location de nacelles élévatrices), protégé par Basic Auth.
+Site privé d'**IWM Location** (location de nacelles ciseaux électriques à Porrentruy), protégé par Basic Auth.
 Next.js 15, React 19, TypeScript, Tailwind CSS, Zod.
+
+Direction artistique : fiche technique sombre, accent orange `#EE7A2F`, police Archivo, nacelles dessinées à l'échelle
+sur une trame de plan.
 
 ## Démarrage local
 
@@ -14,6 +17,27 @@ npm run dev                  # http://localhost:3000
 ```
 
 Version de production en local : `npm run build && npm start`.
+
+## Pages et sections
+
+| Route | Contenu |
+| --- | --- |
+| `/` | Accueil : choix de la nacelle par la hauteur, flotte, tarifs, services, livraison par NPA, étapes, questions, demande de devis en 3 étapes, contact |
+| `/6m`, `/8m`, `/10m`, `/12m` | Fiche d'une nacelle : dessin coté, caractéristiques, « passe-t-elle par votre accès ? », devis |
+| `/api/contact` | Reçoit la demande de devis, la valide (Zod) et l'envoie par e-mail |
+
+Sur l'accueil, « Fiche technique » ouvre la fiche dans une fenêtre ; « Demander un devis » préremplit le formulaire.
+Si l'envoi échoue, le client peut transmettre sa demande sur WhatsApp ou la copier dans un e-mail.
+
+## Où modifier le contenu
+
+| Fichier | Contenu |
+| --- | --- |
+| `lib/site.ts` | Coordonnées : téléphone, WhatsApp, e-mail, adresse et horaires du dépôt, IDE |
+| `lib/models.ts` | Nacelles : hauteurs, capacité, dimensions, prix par jour (`null` = « à confirmer ») |
+| `lib/pricing.ts` | Remises selon la durée (10 % dès 8 jours, 20 % dès 29 jours) |
+| `lib/delivery.ts` | Zones et délais de livraison par NPA |
+| `components/Services.tsx`, `components/Faq.tsx` | Services inclus, conditions, questions fréquentes |
 
 ## Variables d'environnement
 
@@ -47,26 +71,15 @@ La réponse à l'e-mail reçu part directement vers le client (en-tête Reply-To
 
 ## Déploiement sur Vercel
 
-1. [vercel.com](https://vercel.com) → **Add New… → Project** → importer `gregoirehrtm-dotcom/iwm-location-pro` (Next.js est détecté automatiquement, aucun réglage de build à changer).
+1. [vercel.com](https://vercel.com) → **Add New… → Project** → importer `gregoirehrtm-dotcom/iwm-location-pro`.
 2. **Settings → Environment Variables** : ajouter les variables ci-dessus en cochant **Production** et **Preview**.
 3. Déployer. Une variable ajoutée ou modifiée ne s'applique qu'aux nouveaux déploiements : **Deployments → ⋯ → Redeploy**.
 
 La branche `main` est déployée en production ; chaque autre branche obtient une URL de preview.
-
 `vercel.json` impose le preset Next.js, même si le projet Vercel a été créé avec un autre réglage.
 
-## Structure
+## À compléter
 
-| Fichier | Rôle |
-| --- | --- |
-| `app/page.tsx` | Accueil : modèles, estimateur de prix, demande de devis |
-| `app/[model]/page.tsx` | Fiche d'un modèle (`/6m`, `/8m`, `/10m`, `/12m`) |
-| `app/api/contact/route.ts` | Reçoit le formulaire et le valide avec Zod |
-| `lib/email.ts` | Envoi de la demande par e-mail via Resend |
-| `lib/models.ts` | Modèles et tarifs |
-| `components/` | Header, Footer, Hero, ModelCard, PriceEstimator, ContactForm |
-| `middleware.ts` | Basic Auth |
-
-## Reste à faire
-
-- Renseigner le numéro de téléphone dans `components/Footer.tsx`.
+- Capacité, largeur et dimensions repliées des nacelles 8, 10 et 12 m (`lib/models.ts`, affichées « à confirmer »).
+- Prix par jour à confirmer (`lib/models.ts`).
+- Pages mentions légales, confidentialité et conditions de location.

@@ -1,24 +1,52 @@
+import { site, whatsappUrl } from "@/lib/site";
+import CopyButton from "./CopyButton";
+import DepotStatus from "./DepotStatus";
+import Icon from "./Icon";
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white mt-12">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 className="font-bold mb-3">IWM Location</h3>
-            <p className="text-sm text-gray-400">Location de nacelles élévatrices en Suisse Romande.</p>
+    <footer className="footer" id="contact" aria-labelledby="t-contact">
+      <div className="wrap">
+        <div className="head">
+          <h2 className="h2" id="t-contact">Contact</h2>
+        </div>
+        <div className="f-grid">
+          <div className="box">
+            <h3><Icon name="phone" />Téléphone</h3>
+            <a className="big" href={site.phoneHref}>{site.phone}</a>
+            <div><CopyButton text={site.phone} /></div>
           </div>
-          <div>
-            <h3 className="font-bold mb-3">Contact</h3>
-            <p className="text-sm text-gray-400">Tel: +41 XX XXX XX XX</p>
-            <p className="text-sm text-gray-400">Email: contact@iwm-location.ch</p>
+          <div className="box">
+            <h3><Icon name="wa" />WhatsApp</h3>
+            <a className="big" href={whatsappUrl()} target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+            <p>Envoyez une photo du chantier, nous vous conseillons.</p>
           </div>
-          <div>
-            <h3 className="font-bold mb-3">Adresse</h3>
-            <p className="text-sm text-gray-400">Genève, Suisse</p>
+          <div className="box">
+            <h3><Icon name="mail" />E-mail</h3>
+            <span className="big" style={{ fontSize: "1.02rem" }}>{site.email}</span>
+            <div><CopyButton text={site.email} /></div>
+          </div>
+          <div className="box">
+            <h3><Icon name="depot" />Dépôt</h3>
+            <p style={{ color: "var(--ink)" }}>
+              {site.street}
+              <br />
+              {site.postalCode} {site.city}
+            </p>
+            <p className="num">{site.hoursShort}</p>
+            <DepotStatus />
+          </div>
+          <div className="box">
+            <h3><Icon name="wrench" />Dépannage</h3>
+            <p className="big">24&nbsp;h/24, 7&nbsp;j/7</p>
+            <p>Intervention sous 24&nbsp;h, ou nacelle remplacée.</p>
           </div>
         </div>
-        <div className="border-t border-gray-700 pt-4 text-center text-sm text-gray-400">
-          <p>&copy; 2026 IWM Location. Tous droits réservés.</p>
+        <div className="legal">
+          <span>
+            © {new Date().getFullYear()} {site.name}, {site.legalName}, IDE {site.ide}
+          </span>
+          <span>Mentions légales, confidentialité et conditions de location : pages en préparation</span>
         </div>
       </div>
     </footer>

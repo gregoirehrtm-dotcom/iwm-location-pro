@@ -4,9 +4,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#2B5A7B",
-        success: "#22C55E",
-        alert: "#F97316",
+        primary: "#EE7A2F",
+        success: "#5BC48A",
+        alert: "#F08A7E",
       }
     }
   },
