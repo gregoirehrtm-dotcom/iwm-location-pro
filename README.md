@@ -53,6 +53,8 @@ La réponse à l'e-mail reçu part directement vers le client (en-tête Reply-To
 
 La branche `main` est déployée en production ; chaque autre branche obtient une URL de preview.
 
+`vercel.json` impose le preset Next.js, même si le projet Vercel a été créé avec un autre réglage.
+
 ## Structure
 
 | Fichier | Rôle |
