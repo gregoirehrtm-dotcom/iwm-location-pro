@@ -1,0 +1,32 @@
+:root{--brand:#0f3d6b;--accent:#f5a623;--bg:#f8fafc;--text:#0f172a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:#fff;line-height:1.6}
+a{color:var(--brand)}
+.container{max-width:1100px;margin:0 auto;padding:0 1rem}
+header.site{background:var(--brand);color:#fff;position:sticky;top:0;z-index:10}
+header.site .container{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;padding-top:.75rem;padding-bottom:.75rem}
+header.site a{color:#fff;text-decoration:none;margin-right:1rem}
+header.site a:hover{text-decoration:underline}
+footer.site{background:#0b2a4a;color:#cbd5e1;padding:2rem 0;margin-top:3rem}
+footer.site a{color:#fff}
+.btn{display:inline-block;background:var(--accent);color:#111;border:0;padding:.7rem 1.2rem;border-radius:8px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.btn:disabled{opacity:.6;cursor:wait}
+.grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{border:1px solid #e2e8f0;border-radius:12px;padding:1rem;background:#fff;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 6px 20px rgba(15,61,107,.15);transform:translateY(-2px)}
+.card img,.gallery img{width:100%;height:auto;border-radius:8px}
+.gallery{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.hero{background:linear-gradient(135deg,var(--brand),#1e6aa8);color:#fff;padding:4rem 0}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid #e2e8f0;padding:.6rem;text-align:left}
+th{background:var(--bg)}
+form label{display:block;margin:.75rem 0 .25rem;font-weight:600}
+input,select,textarea{width:100%;padding:.6rem;border:1px solid #94a3b8;border-radius:6px;font:inherit}
+input:focus,select:focus,textarea:focus,a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.toast{position:fixed;bottom:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:8px;color:#fff;animation:in .3s}
+.toast.ok{background:#15803d}.toast.err{background:#b91c1c}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+details{border:1px solid #e2e8f0;border-radius:8px;padding:.6rem 1rem;margin:.5rem 0}
+summary{cursor:pointer;font-weight:600}
+@media(max-width:768px){.hero{padding:2.5rem 0}}
