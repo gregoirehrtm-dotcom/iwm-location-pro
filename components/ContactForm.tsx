@@ -43,27 +43,37 @@ export default function ContactForm({ model }: { model?: string }) {
       <input
         name="name"
         placeholder="Nom"
+        aria-label="Nom"
         required
+        minLength={2}
+        maxLength={100}
         className="w-full border rounded p-3"
       />
       <input
         name="email"
         type="email"
         placeholder="Email"
+        aria-label="Email"
         required
+        maxLength={200}
         className="w-full border rounded p-3"
       />
       <input
         name="phone"
         type="tel"
         placeholder="Téléphone"
+        aria-label="Téléphone"
+        maxLength={30}
         className="w-full border rounded p-3"
       />
       <textarea
         name="message"
         placeholder="Message"
+        aria-label="Message"
         rows={4}
         required
+        minLength={5}
+        maxLength={5000}
         className="w-full border rounded p-3"
       />
       <button
@@ -73,7 +83,7 @@ export default function ContactForm({ model }: { model?: string }) {
       >
         {loading ? "Envoi..." : "Envoyer"}
       </button>
-      {status && <p className="text-sm text-center">{status}</p>}
+      {status && <p className="text-sm text-center" aria-live="polite">{status}</p>}
     </form>
   );
 }

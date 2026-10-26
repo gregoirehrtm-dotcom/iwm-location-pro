@@ -13,7 +13,7 @@ export default function Home() {
       <main className="min-h-screen">
         <Hero />
         
-        <section className="py-12 px-4 max-w-6xl mx-auto">
+        <section id="modeles" className="py-12 px-4 max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center">Nos Modèles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {models.map((model) => (
@@ -22,14 +22,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-12 px-4 bg-white">
+        <section id="tarifs" className="py-12 px-4 bg-white">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl font-bold mb-8 text-center">Estimateur de Prix</h2>
             <PriceEstimator />
           </div>
         </section>
 
-        <section className="py-12 px-4 max-w-2xl mx-auto">
+        <section id="devis" className="py-12 px-4 max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center">Demande de Devis</h2>
           <ContactForm />
         </section>

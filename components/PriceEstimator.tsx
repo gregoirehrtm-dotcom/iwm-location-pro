@@ -16,8 +16,9 @@ export default function PriceEstimator() {
     <div className="bg-gray-50 p-8 rounded-lg">
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label className="block font-bold mb-2">Modèle</label>
+          <label htmlFor="estimator-model" className="block font-bold mb-2">Modèle</label>
           <select 
+            id="estimator-model"
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
             className="w-full border rounded p-2"
@@ -28,12 +29,13 @@ export default function PriceEstimator() {
           </select>
         </div>
         <div>
-          <label className="block font-bold mb-2">Nombre de jours</label>
+          <label htmlFor="estimator-days" className="block font-bold mb-2">Nombre de jours</label>
           <input 
+            id="estimator-days"
             type="number" 
             min="1" 
             value={days}
-            onChange={(e) => setDays(parseInt(e.target.value) || 1)}
+            onChange={(e) => setDays(Math.max(1, parseInt(e.target.value) || 1))}
             className="w-full border rounded p-2"
           />
         </div>
